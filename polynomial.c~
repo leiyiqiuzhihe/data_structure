@@ -1,0 +1,85 @@
+//polynomial.c -- 链表保存多项式，多项式的四则运算
+#include<stdio.h>
+#include<stdlib.h>
+#include"polynomial.h"
+
+int main(void)
+{
+
+	return 0;
+}
+
+int init_PList(PList *poly)            //&poly poly是一个PList类型的指针，传递其地址
+{
+	(*poly) = malloc(sizeof(XNode));
+	if ((*poly) == NULL)        //如果malloc失败返回0
+	   return 0;
+	(*poly)->quot = 0;
+	(*poly)->x_expo = 0;
+	(*poly)->y_expo = 0;
+	(*poly)->next = NULL;
+	
+	return 1;
+}
+
+int creat_Node(PNode *p, int quot,int x_expo, int y_expo)
+{
+	if (quot == 0)
+	{
+	   printf("系数不能为零\n");
+	   return 0;
+	}
+
+	p = (PNode *)malloc(sizeof(PNode));
+	if (p)
+	{
+	   p->quot = quot;
+	   p->x_expo = x_expo;
+	   p->y_expo = y_expo;
+	   p->next = NULL;
+	   return 1;
+	}
+	else
+	   return 0;           //调用函数根据返回值判断是否新建节点成功
+}
+
+
+int insert_Node(Plist poly, PNode *p)
+{
+	PNode *current = NULL;
+	PNode *prior = NULL;
+
+	if (p->quot == 0)
+	   return 0;
+	current = poly;
+	while ((current = current->next) && p->x_expo < current->x_expo)
+	{          /*如果current为NULLpoly是空链或到了链尾，寻找x_expo不小于p->x_expo                      的节点*/
+	   prior = current;
+	}
+
+	if ((current == NULL) && (prior == NULL))
+	{
+	   poly->next = p;
+	}
+	else if ((current == NULL) && (prior != NULL))
+	{
+	   prior->next = p;
+	}
+	else                       /*current != NULL 的情况*/
+	{
+	   if (p->x_expo == current->x_expo && p->y_expo < current->y_expo)
+	   {
+		
+		prior->next = p;
+		p->next = current;
+		      //没考虑到x_expo等于0的情形，也许这样也可以
+	   }          //这个条件插在current前面
+	   else
+	   {
+		p->next = current->next;
+		current->next = p;
+	   }
+	}
+	
+	return 1;
+}

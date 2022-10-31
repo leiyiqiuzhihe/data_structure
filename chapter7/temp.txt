@@ -1,0 +1,15 @@
+Result BTreeSearch(BTree *bt, int e);
+static BTNode * NewNodeAndInit();
+static char *GetRecord();
+static void SplitNode(BTNode *p, BTNode **ap, char **recptr, int *e);
+static int SearchNode(BTNode *p, int e);
+static void InsertMoveDatas(BTNode *p, int i);
+int InsertBTree(BTree *bt,BTNode *p, int i，int e);
+static void MergeNode(BTNode *dest, BTNode* sourcefirst, int i, BTNode *source2);
+void RemoveKeyInNode(BTNode *brother,int k_i);
+static Result  SearchMin(BTNode *rchild);
+static Result  SearchMax (TNode *lchild);
+static void DeleteMoveDatas(BTNode *p, int i);
+int BTreeDeleteKey(BTree *bt,BTNode *p, int i，int e);     //开始时p，i是BTreeSearch的返回值，
+void Show_Bt(BTree bt, int depth);
+void Free_Bt(BTree bt);

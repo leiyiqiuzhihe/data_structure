@@ -1,0 +1,51 @@
+给定要删除的关键字e，
+B-树bt
+
+先用BTreesearch(bt,e) ,对其返回结果分析
+
+如果没找到e，提示bt中没有e
+如果找到e，要判断e的两个child是否都是null，
+
+        if (!(p->ptr[i-1]) && !(p->ptr[i]))
+            直接删除    在结点内删除key函数
+
+else
+    if (p->ptr[i])   //e有rchild
+        SearchMax(p->ptr[i])   这个函数也返回Result
+        替换
+    else if (p->ptr[i-1])         //e没有rchild， 有lchild
+        SearchMin(p->ptr[i-1])   这个函数也返回Result
+
+
+    在最下层的非终端结点删除用于替换的key，
+    可以把上面的if也放这
+        if (!(p->ptr[i-1]) && !(p->ptr[i]))
+                直接删除    在结点内删除key函数
+
+
+删除后要判断删除key后该结点的keynum，
+
+if (p->parent && p->keynum < floor_tress)       要判断不是根
+
+        if (rbrother->keynum > floor_trees)
+            借rbrother的最小值
+            借值成功后要整理rbrother的数据
+                 借rbrother值的函数
+                 整理数据函数
+                    用SearchMax的返回值
+
+        else if(lbrother->keynum > floor_trees)
+            借lbrother的最大值
+            借值成功后要整理lbrother的数据
+                借lbrother值的函数   
+                
+                用SearchMin的返回值
+
+
+        else    要合并
+
+            如果有rbrother 与rbrother合并
+                    合并保留哪个指针
+
+
+            否则与lbrother 合并
